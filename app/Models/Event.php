@@ -17,13 +17,15 @@ class Event extends Model
         'poster_path',
     ];
 
-    // Relasi: satu event milik satu kategori
+    protected $casts = [
+        'date' => 'datetime',
+    ];
+
     public function category()
     {
         return $this->belongsTo(Category::class);
     }
 
-    // Relasi: satu event punya banyak transaksi
     public function transactions()
     {
         return $this->hasMany(Transaction::class);

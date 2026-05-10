@@ -11,7 +11,6 @@ class Category extends Model
         'slug',
     ];
 
-    // Relasi: satu kategori punya banyak event
     public function events()
     {
         return $this->hasMany(Event::class);
