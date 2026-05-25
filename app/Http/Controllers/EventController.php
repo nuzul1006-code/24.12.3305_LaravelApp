@@ -2,29 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Event;
+
 class EventController extends Controller
 {
     // Halaman detail event (sisi user)
-    public function show()
+    public function show(Event $event)
     {
-        return view('event-detail');
+        return view('event-detail', compact('event'));
     }
 
     // Halaman checkout
-    public function checkout()
+    public function checkout(Event $event)
     {
-        return view('checkout');
+        return view('checkout', compact('event'));
     }
 
     // Halaman tiket
     public function ticket()
     {
         return view('ticket');
-    }
-
-    // Halaman events untuk admin
-    public function indexAdmin()
-    {
-        return view('admin.events');
     }
 }

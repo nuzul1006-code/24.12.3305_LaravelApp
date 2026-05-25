@@ -40,6 +40,27 @@
     </div>
 </section>
 
+{{-- Kategori Section --}}
+<section id="kategori" class="max-w-7xl mx-auto px-6 py-12">
+    <div class="mb-8">
+        <h2 class="text-2xl font-extrabold mb-2">Jelajahi Kategori</h2>
+        <p class="text-slate-500">Temukan event sesuai minat Anda.</p>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        @foreach($categories as $category)
+        <a href="#events" class="group bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-lg hover:border-indigo-200 transition-all p-6 text-center">
+            <div class="w-12 h-12 bg-indigo-50 rounded-2xl flex items-center justify-center mx-auto mb-3 group-hover:bg-indigo-600 transition">
+                <svg class="w-6 h-6 text-indigo-600 group-hover:text-white transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-5 5a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 10V5a2 2 0 012-2z"></path>
+                </svg>
+            </div>
+            <p class="font-black text-slate-800 group-hover:text-indigo-600 transition">{{ $category->name }}</p>
+            <p class="text-xs text-slate-400 mt-1">{{ $category->events_count }} Event</p>
+        </a>
+        @endforeach
+    </div>
+</section>
+
 {{-- Events Grid --}}
 <section id="events" class="max-w-7xl mx-auto px-6 py-20">
     <div class="flex justify-between items-end mb-12">
@@ -54,21 +75,14 @@
         </div>
     </div>
 
-    {{-- Cek apakah ada event --}}
     @if($events->isEmpty())
         <div class="text-center py-20 text-slate-400">
-            <svg class="w-16 h-16 mx-auto mb-4 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
-            </svg>
             <p class="font-bold text-lg">Belum ada event tersedia.</p>
-            <p class="text-sm mt-1">Silakan cek kembali nanti.</p>
         </div>
     @else
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             @foreach($events as $event)
             <div class="group bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-2xl transition-all duration-300 overflow-hidden">
-
-                {{-- Poster --}}
                 <div class="relative overflow-hidden aspect-[3/4]">
                     @if($event->poster_path)
                         <img src="{{ asset('storage/' . $event->poster_path) }}"
@@ -83,17 +97,15 @@
                         {{ $event->category->name ?? 'Event' }}
                     </div>
                 </div>
-
-                {{-- Info --}}
                 <div class="p-6">
                     <h3 class="text-xl font-bold mb-2 group-hover:text-indigo-600 transition line-clamp-2">
                         {{ $event->title }}
                     </h3>
-                    <div class="flex items-center gap-2 text-slate-500 text-sm mb-4">
+                    <div class="flex items-center gap-2 text-slate-500 text-sm mb-2">
                         <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                         </svg>
-                        <span>{{ \Carbon\Carbon::parse($event->date)->translatedFormat('d F Y, H:i') }}</span>
+                        <span>{{ \Carbon\Carbon::parse($event->date)->format('d M Y, H:i') }}</span>
                     </div>
                     <div class="flex items-center gap-2 text-slate-500 text-sm mb-4">
                         <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -111,12 +123,36 @@
                         </a>
                     </div>
                 </div>
-
             </div>
             @endforeach
         </div>
     @endif
-
 </section>
+
+{{-- Partner Section (Soal 4) --}}
+@if($partners->count() > 0)
+<section id="partner" class="max-w-7xl mx-auto px-6 py-20">
+    <div class="text-center mb-12">
+        <h2 class="text-3xl font-extrabold mb-2">Partner Kami</h2>
+        <p class="text-slate-500 font-medium">Didukung oleh perusahaan dan organisasi terpercaya.</p>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        @foreach($partners as $partner)
+        <div class="bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-lg transition-all p-6 flex flex-col items-center justify-center gap-3">
+            @if($partner->logo_url)
+                <img src="{{ asset('storage/' . $partner->logo_url) }}"
+                     alt="{{ $partner->name }}"
+                     class="h-16 w-auto object-contain">
+            @else
+                <div class="w-16 h-16 rounded-2xl bg-indigo-50 flex items-center justify-center text-indigo-600 font-black text-2xl">
+                    {{ strtoupper(substr($partner->name, 0, 2)) }}
+                </div>
+            @endif
+            <p class="font-bold text-slate-700 text-center text-sm">{{ $partner->name }}</p>
+        </div>
+        @endforeach
+    </div>
+</section>
+@endif
 
 @endsection
