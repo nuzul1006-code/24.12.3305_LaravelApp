@@ -100,7 +100,6 @@ Manajemen Event Modern Amikom
 
 **© 2026 AmikomEventHub — Muhammad Nuzul Kurniawan (24.12.3305)**
 
-Dibuat untuk memenuhi tugas mata kuliah Digital Bisnis
 
 Universitas AMIKOM Yogyakarta
 
