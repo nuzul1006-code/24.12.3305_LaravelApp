@@ -52,47 +52,6 @@ Manajemen Event Modern Amikom
 
 ---
 
-## 🚀 Cara Menjalankan Proyek
-
-### Persyaratan
-- PHP >= 8.1
-- Composer
-- MySQL / MariaDB
-- Laragon / XAMPP
-
-### Langkah Instalasi
-
-```bash
-# 1. Clone repositori
-git clone https://github.com/username/amikomeventhub_3305.git
-cd amikomeventhub_3305
-
-# 2. Install dependencies
-composer install
-
-# 3. Salin file environment
-cp .env.example .env
-
-# 4. Generate application key
-php artisan key:generate
-
-# 5. Konfigurasi database di .env
-DB_DATABASE=eventtiket_db
-DB_USERNAME=root
-DB_PASSWORD=
-
-# 6. Jalankan migrasi dan seeder
-php artisan migrate:fresh --seed
-
-# 7. Buat storage link
-php artisan storage:link
-
-# 8. Jalankan server
-php artisan serve
-```
-
----
-
 ## 🗂️ Struktur Database
 
 | Tabel | Keterangan |
@@ -117,9 +76,9 @@ php artisan serve
 
 ### 🔧 Sisi Admin
 - ✅ Dashboard ringkasan statistik
-- ✅ CRUD Manajemen Event (dengan upload poster)
-- ✅ CRUD Manajemen Kategori (dengan search)
-- ✅ CRUD Manajemen Partner (dengan upload logo)
+- ✅ CRUD Manajemen Event
+- ✅ CRUD Manajemen Kategori
+- ✅ CRUD Manajemen Partner
 - ✅ Laporan Transaksi
 
 ---
@@ -139,12 +98,9 @@ php artisan serve
 ## 📸 Screenshot Aplikasi
 
 ### Halaman Beranda
-> Halaman utama dengan daftar event dan filter kategori
 
 ### Admin Dashboard
-> Panel admin untuk mengelola event, kategori, dan partner
 
----
 
 <div align="center">
 
