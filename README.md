@@ -4,7 +4,7 @@
 
 # Amikom Event Hub
 
-Platform Manajemen Event Modern untuk Komunitas Amikom
+Manajemen Event Modern Amikom
 
 ![Laravel](https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
