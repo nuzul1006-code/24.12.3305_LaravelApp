@@ -10,7 +10,15 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $events     = Event::with('category')->latest()->get();
+        $categoryId = request('category');
+
+        $events = Event::with('category')
+            ->when($categoryId, function ($query) use ($categoryId) {
+                $query->where('category_id', $categoryId);
+            })
+            ->latest()
+            ->get();
+
         $partners   = Partner::latest()->get();
         $categories = Category::withCount('events')->get();
 
