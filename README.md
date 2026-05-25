@@ -95,12 +95,6 @@ Manajemen Event Modern Amikom
 
 ---
 
-## 📸 Screenshot Aplikasi
-
-### Halaman Beranda
-
-### Admin Dashboard
-
 
 <div align="center">
 
