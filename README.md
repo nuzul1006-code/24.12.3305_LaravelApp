@@ -32,23 +32,23 @@ Manajemen Event Modern Amikom
 
 | Nama Tugas | Deskripsi / Bagian | Link Proyek |
 |------------|-------------------|-------------|
-| **TUGAS 1** | Project | [Buka Proyek](http://127.0.0.1:8000) |
-| | Halaman Katalog | [Lihat Katalog](http://127.0.0.1:8000/katalog) |
-| | Halaman Bantuan | [Lihat Bantuan](http://127.0.0.1:8000/bantuan) |
-| | Halaman Profil | [Lihat Profil](http://127.0.0.1:8000/profil) |
-| | Halaman Tentang | [Lihat Tentang](http://127.0.0.1:8000/tentang) |
-| | Halaman Kontak | [Lihat Kontak](http://127.0.0.1:8000/kontak) |
-| **TUGAS 2** | Dashboard Admin | [Lihat Dashboard](http://127.0.0.1:8000/admin) |
-| | Manajemen Event | [Lihat Event](http://127.0.0.1:8000/admin/events) |
-| | Laporan Transaksi | [Lihat Transaksi](http://127.0.0.1:8000/admin/transactions) |
-| | Beranda / Welcome | [Lihat Beranda](http://127.0.0.1:8000) |
-| | Kelola Kategori | [Lihat Kategori](http://127.0.0.1:8000/admin/categories) |
-| | Detail Event | [Lihat Detail Event](http://127.0.0.1:8000/event/1) |
-| | Checkout Tiket | [Lihat Checkout](http://127.0.0.1:8000/checkout/1) |
-| **UTS** | Kelola Partner | [Kelola Partner](http://127.0.0.1:8000/admin/partners) |
+| **TUGAS 1** | Project | [Buka Proyek](https://24123305-laravelapp-main-slcluc.free.laravel.cloud/) |
+| | Halaman Katalog | [Lihat Katalog](https://24123305-laravelapp-main-slcluc.free.laravel.cloud//katalog) |
+| | Halaman Bantuan | [Lihat Bantuan](https://24123305-laravelapp-main-slcluc.free.laravel.cloud//bantuan) |
+| | Halaman Profil | [Lihat Profil](https://24123305-laravelapp-main-slcluc.free.laravel.cloud//profil) |
+| | Halaman Tentang | [Lihat Tentang](https://24123305-laravelapp-main-slcluc.free.laravel.cloud//tentang) |
+| | Halaman Kontak | [Lihat Kontak](https://24123305-laravelapp-main-slcluc.free.laravel.cloud//kontak) |
+| **TUGAS 2** | Dashboard Admin | [Lihat Dashboard](https://24123305-laravelapp-main-slcluc.free.laravel.cloud/admin) |
+| | Kelola Event | [Lihat Event](https://24123305-laravelapp-main-slcluc.free.laravel.cloud/admin/events) |
+| | Laporan Transaksi | [Lihat Transaksi](https://24123305-laravelapp-main-slcluc.free.laravel.cloud/admin/transactions) |
+| | Beranda / Welcome | [Lihat Beranda](https://24123305-laravelapp-main-slcluc.free.laravel.cloud/) |
+| | Kelola Kategori | [Lihat Kategori](https://24123305-laravelapp-main-slcluc.free.laravel.cloud/admin/categories) |
+| | Detail Event | [Lihat Detail Event](https://24123305-laravelapp-main-slcluc.free.laravel.cloud/event/1) |
+| | Checkout Tiket | [Lihat Checkout](https://24123305-laravelapp-main-slcluc.free.laravel.cloud/checkout/1) |
+| **UTS** | Kelola Partner | [Kelola Partner](https://24123305-laravelapp-main-slcluc.free.laravel.cloud/admin/partners) |
 | | CRUD Kategori | [Kelola Kategori](http://127.0.0.1:8000/admin/categories) |
-| | Filter & Search | [Coba Filter](http://127.0.0.1:8000/admin/categories) |
-| | Public View Partner | [Lihat Beranda](http://127.0.0.1:8000) |
+| | Filter & Search | [Coba Filter](https://24123305-laravelapp-main-slcluc.free.laravel.cloud/admin/categories?search=seminar) |
+| | Public View Partner | [Lihat Beranda](https://24123305-laravelapp-main-slcluc.free.laravel.cloud/) |
 
 ---
 
