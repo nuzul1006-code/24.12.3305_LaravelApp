@@ -32,19 +32,19 @@ Manajemen Event Modern Amikom
 
 | Nama Tugas | Deskripsi / Bagian | Link Proyek |
 |------------|-------------------|-------------|
-| **TUGAS 1** | Project | [Buka Proyek](http://127.0.0.1:8000) |
+| **TUGAS 1** | Project | [Buka Proyek](https://24123305-laravelapp-main-slcluc.free.laravel.cloud/) |
 | | Halaman Katalog | [Lihat Katalog](http://127.0.0.1:8000/katalog) |
 | | Halaman Bantuan | [Lihat Bantuan](http://127.0.0.1:8000/bantuan) |
 | | Halaman Profil | [Lihat Profil](http://127.0.0.1:8000/profil) |
 | | Halaman Tentang | [Lihat Tentang](http://127.0.0.1:8000/tentang) |
 | | Halaman Kontak | [Lihat Kontak](http://127.0.0.1:8000/kontak) |
-| **TUGAS 2** | Dashboard Admin | [Lihat Dashboard](http://127.0.0.1:8000/admin) |
-| | Manajemen Event | [Lihat Event](http://127.0.0.1:8000/admin/events) |
+| **TUGAS 2** | Dashboard Admin | [https://24123305-laravelapp-main-slcluc.free.laravel.cloud/admin) |
+| | Kelola Event | [Lihat Event](https://24123305-laravelapp-main-slcluc.free.laravel.cloud/admin/events) |
 | | Laporan Transaksi | [Lihat Transaksi](http://127.0.0.1:8000/admin/transactions) |
-| | Beranda / Welcome | [Lihat Beranda](http://127.0.0.1:8000) |
+| | Beranda / Welcome | [Lihat Beranda](https://24123305-laravelapp-main-slcluc.free.laravel.cloud/) |
 | | Kelola Kategori | [Lihat Kategori](http://127.0.0.1:8000/admin/categories) |
-| | Detail Event | [Lihat Detail Event](http://127.0.0.1:8000/event/1) |
-| | Checkout Tiket | [Lihat Checkout](http://127.0.0.1:8000/checkout/1) |
+| | Detail Event | [Lihat Detail Event](https://24123305-laravelapp-main-slcluc.free.laravel.cloud/event/1) |
+| | Checkout Tiket | [Lihat Checkout](https://24123305-laravelapp-main-slcluc.free.laravel.cloud/checkout/1) |
 | **UTS** | Kelola Partner | [Kelola Partner](http://127.0.0.1:8000/admin/partners) |
 | | CRUD Kategori | [Kelola Kategori](http://127.0.0.1:8000/admin/categories) |
 | | Filter & Search | [Coba Filter](http://127.0.0.1:8000/admin/categories) |
