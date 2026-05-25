@@ -38,7 +38,7 @@ Manajemen Event Modern Amikom
 | | Halaman Profil | [Lihat Profil](https://24123305-laravelapp-main-slcluc.free.laravel.cloud//profil) |
 | | Halaman Tentang | [Lihat Tentang](https://24123305-laravelapp-main-slcluc.free.laravel.cloud//tentang) |
 | | Halaman Kontak | [Lihat Kontak](https://24123305-laravelapp-main-slcluc.free.laravel.cloud//kontak) |
-| **TUGAS 2** Dashboard Admin | [Lihat Dashboard](https://24123305-laravelapp-main-slcluc.free.laravel.cloud/admin) |
+| **TUGAS 2** | Dashboard Admin | [Lihat Dashboard](https://24123305-laravelapp-main-slcluc.free.laravel.cloud/admin) |
 | | Kelola Event | [Lihat Event](https://24123305-laravelapp-main-slcluc.free.laravel.cloud/admin/events) |
 | | Laporan Transaksi | [Lihat Transaksi](https://24123305-laravelapp-main-slcluc.free.laravel.cloud/admin/transactions) |
 | | Beranda / Welcome | [Lihat Beranda](https://24123305-laravelapp-main-slcluc.free.laravel.cloud/) |
