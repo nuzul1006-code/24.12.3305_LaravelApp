@@ -24,7 +24,7 @@ Manajemen Event Modern Amikom
 - **Kelas:** 24SI04
 - **Prodi:** Sistem Informasi
 - **Dosen:** Ika Nur Fajri, S.Kom., M.Kom.
-- **Repository:** amikomeventhub_3305
+- **Repository:** 24.12.3305_LaravelApp
 
 ---
 
@@ -32,7 +32,7 @@ Manajemen Event Modern Amikom
 
 | Nama Tugas | Deskripsi / Bagian | Link Proyek |
 |------------|-------------------|-------------|
-| **TUGAS 1** | Project Initial | [Buka Proyek](http://127.0.0.1:8000) |
+| **TUGAS 1** | Project | [Buka Proyek](http://127.0.0.1:8000) |
 | | Halaman Katalog | [Lihat Katalog](http://127.0.0.1:8000/katalog) |
 | | Halaman Bantuan | [Lihat Bantuan](http://127.0.0.1:8000/bantuan) |
 | | Halaman Profil | [Lihat Profil](http://127.0.0.1:8000/profil) |
