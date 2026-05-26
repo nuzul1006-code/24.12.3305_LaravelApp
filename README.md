@@ -46,7 +46,7 @@ Manajemen Event Modern Amikom
 | | Detail Event | [Lihat Detail Event](https://24123305-laravelapp-main-slcluc.free.laravel.cloud/event/1) |
 | | Checkout Tiket | [Lihat Checkout](https://24123305-laravelapp-main-slcluc.free.laravel.cloud/checkout/1) |
 | **UTS** | Kelola Partner | [Kelola Partner](https://24123305-laravelapp-main-slcluc.free.laravel.cloud/admin/partners) |
-| | CRUD Kategori | [Kelola Kategori](http://127.0.0.1:8000/admin/categories) |
+| | CRUD Kategori | [Kelola Kategori](https://24123305-laravelapp-main-slcluc.free.laravel.cloud/admin/categories) |
 | | Filter & Search | [Coba Filter](https://24123305-laravelapp-main-slcluc.free.laravel.cloud/admin/categories?search=seminar) |
 | | Public View Partner | [Lihat Beranda](https://24123305-laravelapp-main-slcluc.free.laravel.cloud/) |
 
