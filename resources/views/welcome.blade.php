@@ -40,66 +40,54 @@
     </div>
 </section>
 
-{{-- Kategori Section --}}
-<section id="kategori" class="max-w-7xl mx-auto px-6 py-12">
-    <div class="mb-8">
-        <h2 class="text-2xl font-extrabold mb-2">Jelajahi Kategori</h2>
-        <p class="text-slate-500">Temukan event sesuai minat Anda.</p>
+{{-- Events Section --}}
+<section id="events" class="max-w-7xl mx-auto px-6 py-20">
+
+    {{-- Header --}}
+    <div class="mb-10">
+        <h2 class="text-3xl font-extrabold mb-2">Event Terdekat</h2>
+        <p class="text-slate-500 font-medium">Jangan sampai ketinggalan acara seru!</p>
     </div>
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+
+    {{-- Filter Kategori --}}
+    <div class="mb-10 flex flex-wrap gap-3">
         {{-- Tombol Semua --}}
-        <a href="{{ route('home') }}#events"
-           class="group bg-white rounded-2xl border {{ !request('category') ? 'border-indigo-400 bg-indigo-50' : 'border-slate-100' }} shadow-sm hover:shadow-lg hover:border-indigo-200 transition-all p-6 text-center">
-            <div class="w-12 h-12 {{ !request('category') ? 'bg-indigo-600' : 'bg-indigo-50' }} rounded-2xl flex items-center justify-center mx-auto mb-3 group-hover:bg-indigo-600 transition">
-                <svg class="w-6 h-6 {{ !request('category') ? 'text-white' : 'text-indigo-600' }} group-hover:text-white transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                </svg>
-            </div>
-            <p class="font-black {{ !request('category') ? 'text-indigo-600' : 'text-slate-800' }} group-hover:text-indigo-600 transition">Semua</p>
-            <p class="text-xs text-slate-400 mt-1">{{ $events->count() }} Event</p>
+        <a href="{{ route('home') }}"
+           class="px-5 py-2.5 rounded-2xl font-bold text-sm transition
+           {{ !request('category') ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-200' : 'bg-white border border-slate-200 text-slate-600 hover:border-indigo-400 hover:text-indigo-600' }}">
+            🗂️ Semua Kategori
         </a>
 
-        @foreach($categories as $category)
-        <a href="{{ route('home', ['category' => $category->id]) }}#events"
-           class="group bg-white rounded-2xl border {{ request('category') == $category->id ? 'border-indigo-400 bg-indigo-50' : 'border-slate-100' }} shadow-sm hover:shadow-lg hover:border-indigo-200 transition-all p-6 text-center">
-            <div class="w-12 h-12 {{ request('category') == $category->id ? 'bg-indigo-600' : 'bg-indigo-50' }} rounded-2xl flex items-center justify-center mx-auto mb-3 group-hover:bg-indigo-600 transition">
-                <svg class="w-6 h-6 {{ request('category') == $category->id ? 'text-white' : 'text-indigo-600' }} group-hover:text-white transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-5 5a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 10V5a2 2 0 012-2z"></path>
-                </svg>
-            </div>
-            <p class="font-black {{ request('category') == $category->id ? 'text-indigo-600' : 'text-slate-800' }} group-hover:text-indigo-600 transition">
-                {{ $category->name }}
-            </p>
-            <p class="text-xs text-slate-400 mt-1">{{ $category->events_count }} Event</p>
+        {{-- Tab Kategori Dinamis --}}
+        @foreach($categories as $cat)
+        <a href="{{ route('home', ['category' => $cat->slug]) }}#events"
+           class="px-5 py-2.5 rounded-2xl font-bold text-sm transition
+           {{ request('category') == $cat->slug ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-200' : 'bg-white border border-slate-200 text-slate-600 hover:border-indigo-400 hover:text-indigo-600' }}">
+            {{ $cat->name }}
         </a>
         @endforeach
     </div>
-</section>
 
-{{-- Events Grid --}}
-<section id="events" class="max-w-7xl mx-auto px-6 py-20">
-    <div class="flex justify-between items-end mb-12">
-        <div>
-            @if(request('category'))
-                @php $selectedCategory = $categories->find(request('category')); @endphp
-                <h2 class="text-3xl font-extrabold mb-2">
-                    Event: {{ $selectedCategory->name ?? 'Kategori' }}
-                </h2>
-                <p class="text-slate-500 font-medium">
-                    Menampilkan {{ $events->count() }} event dalam kategori ini.
-                    <a href="{{ route('home') }}#events" class="text-indigo-600 font-bold hover:underline ml-2">
-                        ← Lihat Semua
-                    </a>
-                </p>
-            @else
-                <h2 class="text-3xl font-extrabold mb-2">Event Terdekat</h2>
-                <p class="text-slate-500 font-medium">Jangan sampai ketinggalan acara seru minggu ini!</p>
-            @endif
+    {{-- Info filter aktif --}}
+    @if(request('category'))
+        @php $activeCat = $categories->firstWhere('slug', request('category')); @endphp
+        <div class="mb-8 flex items-center gap-3 px-6 py-4 bg-indigo-50 rounded-2xl border border-indigo-100">
+            <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2a1 1 0 01-.293.707L13 13.414V19a1 1 0 01-.553.894l-4 2A1 1 0 017 21v-7.586L3.293 6.707A1 1 0 013 6V4z"></path>
+            </svg>
+            <p class="text-indigo-700 font-bold text-sm">
+                Filter aktif: <span class="text-indigo-900">{{ $activeCat->name ?? request('category') }}</span>
+                — menampilkan {{ $events->count() }} event
+            </p>
+            <a href="{{ route('home') }}" class="ml-auto text-xs font-bold text-indigo-500 hover:text-indigo-700 underline">
+                ✕ Hapus filter
+            </a>
         </div>
-    </div>
+    @endif
 
+    {{-- Grid Event --}}
     @if($events->isEmpty())
-        <div class="text-center py-20 text-slate-400">
+        <div class="text-center py-24 text-slate-400">
             <svg class="w-16 h-16 mx-auto mb-4 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
             </svg>
@@ -158,7 +146,7 @@
     @endif
 </section>
 
-{{-- Partner Section (Soal 4) --}}
+{{-- Partner Section --}}
 @if($partners->count() > 0)
 <section id="partner" class="max-w-7xl mx-auto px-6 py-20">
     <div class="text-center mb-12">

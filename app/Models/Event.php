@@ -21,11 +21,13 @@ class Event extends Model
         'date' => 'datetime',
     ];
 
+    // 1 Event terpaut pada satu Kategori
     public function category()
     {
         return $this->belongsTo(Category::class);
     }
 
+    // 1 Event punya banyak Transaksi
     public function transactions()
     {
         return $this->hasMany(Transaction::class);
