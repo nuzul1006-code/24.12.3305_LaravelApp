@@ -23,13 +23,13 @@ Route::get('/bantuan', function () { return view('bantuan'); });
 // ===== USER AREA =====
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/event/{event}', [EventController::class, 'show'])->name('events.show');
-Route::get('/checkout/{event}', [EventController::class, 'checkout'])->name('checkout');
 Route::get('/my-ticket', [EventController::class, 'ticket'])->name('ticket');
 
-// ===== CHECKOUT (pakai CheckoutController) =====
+// ===== CHECKOUT FLOW =====
 Route::get('/checkout/{event}', [CheckoutController::class, 'create'])->name('checkout.create');
 Route::post('/checkout/{event}', [CheckoutController::class, 'store'])->name('checkout.store');
-
+Route::get('/payment/{order_id}', [CheckoutController::class, 'payment'])->name('checkout.payment');
+Route::get('/success/{order_id}', [CheckoutController::class, 'success'])->name('checkout.success');
 
 // Redirect /login ke admin login
 Route::get('/login', function () {
@@ -39,12 +39,10 @@ Route::get('/login', function () {
 // ===== ADMIN AREA =====
 Route::prefix('admin')->name('admin.')->group(function () {
 
-    // Rute Login (bebas akses)
     Route::get('login', [AuthController::class, 'showLogin'])->name('login');
     Route::post('login', [AuthController::class, 'login'])->name('login.post');
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
-    // Rute terproteksi Middleware
     Route::middleware(['auth', 'admin'])->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');
