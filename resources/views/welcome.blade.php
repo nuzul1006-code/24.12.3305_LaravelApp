@@ -7,7 +7,7 @@
     <div class="flex-1 space-y-8">
         <span class="inline-block px-4 py-1.5 bg-indigo-100 text-indigo-700 rounded-full text-sm font-bold uppercase tracking-wider">#1 Event Platform</span>
         <h1 class="text-5xl md:text-7xl font-extrabold leading-tight">
-            Temukan & Pesan <span class="text-indigo-600">Tiket Event</span> Impianmu.
+            Temukan & Pesan <span class="text-indigo-600">Loket Event</span> Impianmu.
         </h1>
         <p class="text-lg text-slate-500 max-w-lg leading-relaxed">
             Dari konser musik hingga workshop teknologi, semua ada di genggamanmu. Pesan aman & cepat dengan Midtrans.
