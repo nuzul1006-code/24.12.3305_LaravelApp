@@ -41,18 +41,15 @@ class CheckoutController extends Controller
             'customer_email' => $request->customer_email,
             'customer_phone' => $request->customer_phone,
             'total_price'    => $totalPrice,
-            'status'         => 'Pending',
+            'status'         => 'pending', // ← huruf kecil semua
         ]);
 
         // --- INTEGRASI SNAP MIDTRANS ---
-
-        // Konfigurasi Kredensial Environment Midtrans
         \Midtrans\Config::$serverKey    = env('MIDTRANS_SERVER_KEY');
-        \Midtrans\Config::$isProduction = false; // Mode Sandbox!
+        \Midtrans\Config::$isProduction = false;
         \Midtrans\Config::$isSanitized  = true;
         \Midtrans\Config::$is3ds        = true;
 
-        // Susun paket array data transaksi
         $params = [
             'transaction_details' => [
                 'order_id'     => $orderId,
@@ -66,17 +63,11 @@ class CheckoutController extends Controller
         ];
 
         try {
-            // Generate Snap Token
             $snapToken = \Midtrans\Snap::getSnapToken($params);
-
-            // Update rekaman transaksi dengan snap_token
             $transaction->update(['snap_token' => $snapToken]);
-
-            // Redirect ke halaman pembayaran
             return redirect()->route('checkout.payment', $transaction->order_id);
-
         } catch (\Exception $e) {
-            return back()->with('error', 'Gagal memproses pembayaran jaringan: ' . $e->getMessage());
+            return back()->with('error', 'Gagal memproses pembayaran: ' . $e->getMessage());
         }
     }
 
@@ -84,27 +75,52 @@ class CheckoutController extends Controller
     {
         $categories  = \App\Models\Category::all();
         $transaction = Transaction::with('event')->where('order_id', $order_id)->firstOrFail();
-
         return view('checkout.payment', compact('transaction', 'categories'));
     }
 
     public function success(string $order_id)
     {
         $categories  = \App\Models\Category::all();
-        $transaction = Transaction::where('order_id', $order_id)->firstOrFail();
+        $transaction = Transaction::with('event')->where('order_id', $order_id)->firstOrFail();
 
-        // Validasi status pembayaran asli dari Midtrans
+        // Konfigurasi Midtrans
         \Midtrans\Config::$serverKey    = env('MIDTRANS_SERVER_KEY');
         \Midtrans\Config::$isProduction = false;
+        \Midtrans\Config::$isSanitized  = true;
+        \Midtrans\Config::$is3ds        = true;
 
         try {
-            $midtransStatus = \Midtrans\Transaction::status($order_id);
+            // Cek status langsung ke API Midtrans (Fallback Check)
+            $status     = \Midtrans\Transaction::status($order_id);
+            $trx_status = is_array($status)
+                ? ($status['transaction_status'] ?? '')
+                : ($status->transaction_status ?? '');
 
-            if (in_array($midtransStatus->transaction_status, ['capture', 'settlement'])) {
-                $transaction->update(['status' => 'success']);
+            // Jika Midtrans konfirmasi lunas
+            if (in_array($trx_status, ['settlement', 'capture'])) {
+
+                // Hanya update jika masih pending (webhook belum masuk)
+                if (strtolower($transaction->status) === 'pending') {
+                    $transaction->update(['status' => 'success']);
+
+                    // Kurangi stok tiket
+                    if ($transaction->event && $transaction->event->stock > 0) {
+                        $transaction->event->stock = $transaction->event->stock - 1;
+                        $transaction->event->save();
+
+                        // Kirim email E-Ticket (akan aktif setelah Pertemuan 13)
+                        // try {
+                        //     \Illuminate\Support\Facades\Mail::to($transaction->customer_email)
+                        //         ->send(new \App\Mail\EventTicketMail($transaction));
+                        // } catch (\Exception $e) {
+                        //     \Log::error('Gagal kirim email: ' . $e->getMessage());
+                        // }
+                    }
+                }
             }
         } catch (\Exception $e) {
-            return redirect()->route('home')->with('error', 'Transaksi tidak ditemukan atau gagal diproses oleh sistem pembayaran.');
+            return redirect()->route('home')
+                ->with('error', 'Transaksi tidak ditemukan atau gagal diproses.');
         }
 
         return view('checkout.success', compact('transaction', 'categories'));
