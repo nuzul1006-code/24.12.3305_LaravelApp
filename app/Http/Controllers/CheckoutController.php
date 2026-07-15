@@ -43,8 +43,8 @@ class CheckoutController extends Controller
             'status'         => 'pending',
         ]);
 
-        \Midtrans\Config::$serverKey    = env('MIDTRANS_SERVER_KEY');
-        \Midtrans\Config::$isProduction = false;
+        \Midtrans\Config::$serverKey    = config('midtrans.server_key');
+        \Midtrans\Config::$isProduction = config('midtrans.is_production', false);
         \Midtrans\Config::$isSanitized  = true;
         \Midtrans\Config::$is3ds        = true;
 
@@ -81,8 +81,8 @@ class CheckoutController extends Controller
         $categories  = \App\Models\Category::all();
         $transaction = Transaction::with('event')->where('order_id', $order_id)->firstOrFail();
 
-        \Midtrans\Config::$serverKey    = env('MIDTRANS_SERVER_KEY');
-        \Midtrans\Config::$isProduction = false;
+        \Midtrans\Config::$serverKey    = config('midtrans.server_key');
+        \Midtrans\Config::$isProduction = config('midtrans.is_production', false);
         \Midtrans\Config::$isSanitized  = true;
         \Midtrans\Config::$is3ds        = true;
 
