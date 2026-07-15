@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\EventTicketMail;
 
 class MidtransWebhookController extends Controller
 {
@@ -18,19 +21,18 @@ class MidtransWebhookController extends Controller
             return response()->json(['message' => 'Invalid payload'], 400);
         }
 
-        // Cari transaksi di database
         $transaction = Transaction::with('event')->where('order_id', $orderId)->first();
 
         if (!$transaction) {
             return response()->json(['message' => 'Transaction not found'], 404);
         }
 
-        // Cegah proses berulang jika sudah sukses
+        // Cegah proses berulang
         if ($transaction->status === 'settlement' || $transaction->status === 'success') {
             return response()->json(['message' => 'Already processed']);
         }
 
-        // Terjemahkan status dari Midtrans
+        // Terjemahkan status Midtrans
         if ($transactionStatus == 'capture') {
             if ($fraudStatus == 'challenge') {
                 $transaction->status = 'challenge';
@@ -54,6 +56,22 @@ class MidtransWebhookController extends Controller
 
     private function processSuccess(Transaction $transaction)
     {
-        // Akan diisi di Pertemuan 13 (pemotongan stok + kirim email)
+        $event = $transaction->event;
+
+        if ($event && $event->stock > 0) {
+            // Kurangi stok tiket
+            $event->stock = $event->stock - 1;
+            $event->save();
+
+            // Kirim email E-Ticket
+            try {
+                Mail::to($transaction->customer_email)
+                    ->send(new EventTicketMail($transaction));
+            } catch (\Exception $e) {
+                Log::error('Gagal mengirim email E-Ticket via Webhook: ' . $e->getMessage());
+            }
+        } else {
+            Log::warning('Stok habis setelah pembayaran berhasil. Order: ' . $transaction->order_id);
+        }
     }
 }
