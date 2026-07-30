@@ -19,13 +19,15 @@ class EventController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('admin.events.create', compact('categories'));
+        $partners = \App\Models\Partner::all();
+        return view('admin.events.create', compact('categories', 'partners'));
     }
 
     public function store(Request $request)
     {
         $data = $request->validate([
             'category_id' => 'required|exists:categories,id',
+            'partner_id'  => 'nullable|exists:partners,id',
             'title'       => 'required|string|max:255',
             'description' => 'required',
             'date'        => 'required|date',
@@ -47,13 +49,15 @@ class EventController extends Controller
     public function edit(Event $event)
     {
         $categories = Category::all();
-        return view('admin.events.edit', compact('event', 'categories'));
+        $partners = \App\Models\Partner::all();
+        return view('admin.events.edit', compact('event', 'categories', 'partners'));
     }
 
     public function update(Request $request, Event $event)
     {
         $data = $request->validate([
             'category_id' => 'required',
+            'partner_id'  => 'nullable|exists:partners,id',
             'title'       => 'required',
             'description' => 'required',
             'date'        => 'required',

@@ -36,8 +36,22 @@
                 @error('category_id') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
             </div>
 
-            {{-- Tanggal & Waktu --}}
+            {{-- Penyelenggara --}}
             <div>
+                <label class="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">Penyelenggara (Partner)</label>
+                <select name="partner_id" class="w-full px-5 py-3 rounded-xl border border-slate-200 outline-none">
+                    <option value="">Pilih Penyelenggara (Opsional)</option>
+                    @foreach($partners as $partner)
+                        <option value="{{ $partner->id }}" {{ old('partner_id', $event->partner_id) == $partner->id ? 'selected' : '' }}>
+                            {{ $partner->name }}
+                        </option>
+                    @endforeach
+                </select>
+                @error('partner_id') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
+            </div>
+
+            {{-- Tanggal & Waktu --}}
+            <div class="col-span-2">
                 <label class="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">Tanggal & Waktu</label>
                 <input type="datetime-local" name="date"
                     value="{{ old('date', date('Y-m-d\TH:i', strtotime($event->date))) }}"

@@ -21,6 +21,11 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
+        'partner_id',
+        'google_id',
+        'google_token',
+        'google_avatar',
     ];
 
     /**
@@ -44,5 +49,30 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Relasi: User milik 1 Partner (jika role-nya partner/organizer)
+     */
+    public function partner()
+    {
+        return $this->belongsTo(Partner::class);
+    }
+
+    // --- Helper Check Role ---
+
+    public function isSuperadmin(): bool
+    {
+        return $this->role === 'superadmin';
+    }
+
+    public function isPartner(): bool
+    {
+        return $this->role === 'partner';
+    }
+
+    public function isUser(): bool
+    {
+        return $this->role === 'user';
     }
 }

@@ -11,8 +11,8 @@ class AuthController extends Controller
     // Tampilkan halaman login
     public function showLogin()
     {
-        // Jika sudah login, langsung ke dashboard
-        if (Auth::check()) {
+        // Izinkan admin maupun superadmin untuk auto-redirect ke dashboard
+        if (Auth::check() && in_array(Auth::user()->role, ['admin', 'superadmin'])) {
             return redirect()->route('admin.dashboard');
         }
         return view('auth.login');
@@ -27,7 +27,19 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
+            // Izinkan role 'admin' Maupun 'superadmin' untuk masuk
+            if (!in_array(Auth::user()->role, ['admin', 'superadmin'])) {
+                Auth::logout();
+                return back()->with('error', 'Akun ini bukan akun admin.');
+            }
+
             $request->session()->regenerate();
+            
+            // Jika yang login Superadmin, langsung arahkan ke approval panel organizer
+            if (Auth::user()->role === 'superadmin') {
+                return redirect()->route('admin.organizers.index');
+            }
+
             return redirect()->route('admin.dashboard');
         }
 

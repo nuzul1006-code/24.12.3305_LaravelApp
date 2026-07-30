@@ -8,6 +8,7 @@ class Event extends Model
 {
     protected $fillable = [
         'category_id',
+        'partner_id',
         'title',
         'description',
         'date',
@@ -27,9 +28,21 @@ class Event extends Model
         return $this->belongsTo(Category::class);
     }
 
+    // 1 Event terpaut pada satu Partner (Penyelenggara)
+    public function partner()
+    {
+        return $this->belongsTo(Partner::class);
+    }
+
     // 1 Event punya banyak Transaksi
     public function transactions()
     {
         return $this->hasMany(Transaction::class);
+    }
+
+    // 1 Event punya banyak Ulasan (Reviews)
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
     }
 }

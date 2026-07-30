@@ -22,4 +22,10 @@ class Transaction extends Model
     {
         return $this->belongsTo(Event::class);
     }
+
+    // Relasi: satu transaksi sukses dapat memiliki satu ulasan
+    public function review()
+    {
+        return $this->hasOne(Review::class);
+    }
 }

@@ -11,9 +11,11 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        // Alias middleware admin
+        // Alias middleware untuk hak akses role
         $middleware->alias([
-            'admin' => \App\Http\Middleware\AdminMiddleware::class,
+            'admin'      => \App\Http\Middleware\AdminMiddleware::class,
+            'superadmin' => \App\Http\Middleware\EnsureSuperadmin::class,
+            'partner'    => \App\Http\Middleware\EnsurePartner::class,
         ]);
 
         // Bypass CSRF untuk webhook Midtrans

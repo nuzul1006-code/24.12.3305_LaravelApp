@@ -31,8 +31,45 @@ class CheckoutController extends Controller
         }
 
         $orderId    = 'TRX-' . time() . '-' . Str::random(5);
-        $totalPrice = $event->price + 5000;
+        
+        // Tentukan total harga: jika harga event 0, total harga 0. Jika berbayar, tambah biaya layanan.
+        $totalPrice = $event->price == 0 ? 0 : ($event->price + 5000);
 
+        // ==========================================
+        // PERCABANGAN: JIKA EVENT GRATIS (TOTAL = 0)
+        // ==========================================
+        if ($totalPrice == 0) {
+            $transaction = Transaction::create([
+                'event_id'       => $event->id,
+                'order_id'       => $orderId,
+                'customer_name'  => $request->customer_name,
+                'customer_email' => $request->customer_email,
+                'customer_phone' => $request->customer_phone,
+                'total_price'    => 0,
+                'status'         => 'success', // Langsung sukses/paid
+            ]);
+
+            // Kurangi stok tiket
+            if ($event->stock > 0) {
+                $event->stock = $event->stock - 1;
+                $event->save();
+
+                // Kirim email E-Ticket
+                try {
+                    Mail::to($transaction->customer_email)
+                        ->send(new EventTicketMail($transaction));
+                } catch (\Exception $e) {
+                    Log::error('Gagal mengirim email E-Ticket (Free Event): ' . $e->getMessage());
+                }
+            }
+
+            // Langsung arahkan ke halaman sukses
+            return redirect()->route('checkout.success', $transaction->order_id);
+        }
+
+        // ==========================================
+        // ALUR BERBAYAR (MIDTRANS - TETAP SEPERTI SEMULA)
+        // ==========================================
         $transaction = Transaction::create([
             'event_id'       => $event->id,
             'order_id'       => $orderId,
@@ -81,6 +118,11 @@ class CheckoutController extends Controller
         $categories  = \App\Models\Category::all();
         $transaction = Transaction::with('event')->where('order_id', $order_id)->firstOrFail();
 
+        // Jika transaksi dari awal berstatus success (untuk event gratis), lewati pengecekan Midtrans
+        if (strtolower($transaction->status) === 'success') {
+            return view('checkout.success', compact('transaction', 'categories'));
+        }
+
         \Midtrans\Config::$serverKey    = config('midtrans.server_key');
         \Midtrans\Config::$isProduction = config('midtrans.is_production', false);
         \Midtrans\Config::$isSanitized  = true;
@@ -111,8 +153,11 @@ class CheckoutController extends Controller
                 }
             }
         } catch (\Exception $e) {
-            return redirect()->route('home')
-                ->with('error', 'Transaksi tidak ditemukan atau gagal diproses.');
+            // Jika transaksi tidak ditemukan di midtrans tapi status lokal sudah success, biarkan lolos ke view sukses
+            if (strtolower($transaction->status) !== 'success') {
+                return redirect()->route('home')
+                    ->with('error', 'Transaksi tidak ditemukan atau gagal diproses.');
+            }
         }
 
         return view('checkout.success', compact('transaction', 'categories'));
